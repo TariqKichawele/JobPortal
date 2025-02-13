@@ -64,7 +64,7 @@ const LoginForm = () => {
                             action={async () => {
                                 "use server";
                                 await signIn("github", {
-                                  redirectTo: "/",
+                                  redirectTo: "/onboarding",
                                 });
                             }}
                         >
