@@ -6,9 +6,11 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import Image from 'next/image'
 import Logo from "@/public/logo.png";
 import ThemeToggle from './ThemeToggle'
+import { auth } from '@/app/utils/auth'
+import UserDropdown from './UserDropdown'
 
-const Navbar = () => {
-    const session = null;
+const Navbar = async () => {
+    const session = await auth();
   return (
     <nav className="flex justify-between items-center py-5">
         <Link href="/" className="flex items-center gap-2">
@@ -24,10 +26,12 @@ const Navbar = () => {
             <Link href="/post-job" className={buttonVariants({ size: "lg" })}>
                 Post Job
             </Link>
-            {session ? (
-                <div>
-                    UserDropDown
-                </div>
+            {session?.user ? (
+                <UserDropdown
+                    email={session.user.email as string}
+                    name={session.user.name as string}
+                    image={session.user.image as string}
+                />
             ) : (
                 <Link
                     href="/login"
@@ -41,10 +45,12 @@ const Navbar = () => {
         {/* Mobile Navigation */}
         <div className="md:hidden flex items-center gap-4">
             <ThemeToggle />
-            {session ? (
-                <div>
-                    UserDropDown
-                </div>
+            {session?.user ? (
+                <UserDropdown
+                    email={session.user.email as string}
+                    name={session.user.name as string}
+                    image={session.user.image as string}
+                />
             ) : (
                 <Sheet>
                     <SheetTrigger asChild>

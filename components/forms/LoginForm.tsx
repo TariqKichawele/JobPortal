@@ -1,6 +1,7 @@
 import React, { SVGProps } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import { GeneralSubmitButton } from '../general/SubmitButtons';
+import { signIn } from '@/app/utils/auth';
 
 
 const Github = (props: SVGProps<SVGSVGElement>) => (
@@ -60,12 +61,12 @@ const LoginForm = () => {
                 <div className="grid gap-6">
                     <div className="flex flex-col gap-4">
                         <form
-                            // action={async () => {
-                            //     // "use server";
-                            //     // await signIn("github", {
-                            //     //     redirectTo: "/onboarding",
-                            //     // });
-                            // }}
+                            action={async () => {
+                                "use server";
+                                await signIn("github", {
+                                  redirectTo: "/",
+                                });
+                            }}
                         >
                             <GeneralSubmitButton
                                 text="Login with GitHub"
@@ -75,12 +76,12 @@ const LoginForm = () => {
                             />
                         </form>
                         <form
-                            // action={async () => {
-                            //     // "use server";
-                            //     // await signIn("google", {
-                            //     //     redirectTo: "/onboarding",
-                            //     // });
-                            // }}
+                            action={async () => {
+                                "use server";
+                                await signIn("google", {
+                                  redirectTo: "/onboarding",
+                                });
+                            }}
                         >
                             <GeneralSubmitButton
                                 text="Login with Google"
