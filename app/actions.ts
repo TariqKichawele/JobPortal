@@ -81,5 +81,26 @@ export async function createJobSeeker(data: z.infer<typeof jobSeekerSchema>) {
     });
   
     return redirect("/");
+}
+
+export async function getCompany(userId: string) {
+    const data = await prisma.company.findUnique({
+      where: {
+        userId: userId,
+      },
+      select: {
+        name: true,
+        location: true,
+        about: true,
+        logo: true,
+        xAccount: true,
+        website: true,
+      },
+    });
+  
+    if (!data) {
+      return redirect("/");
+    }
+    return data;
   }
   
