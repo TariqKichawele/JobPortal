@@ -34,6 +34,7 @@ import { UploadDropzone } from '../general/UploadThingReExport';
 import SalaryRangeSelector from '../general/SalaryRangeSelector';
 import BenefitsSelector from '../general/BenefitsSelector';
 import { JobListingDurationSelector } from '../general/JobListingDurationSelector';
+import JobDescriptionEditor from '../richTextEditor/JobDescriptionEditor';
 
 interface CreateJobFormProps {
     companyName: string;
@@ -197,6 +198,21 @@ const CreateJobForm = ({
                             </FormMessage>
                         </FormItem>
                     </div>
+
+                    <FormField
+                        control={form.control}
+                        name="jobDescription"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Job Description</FormLabel>
+                                <FormControl>
+                                    <JobDescriptionEditor field={field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
 
                     <FormField
                         control={form.control}
