@@ -35,6 +35,7 @@ import SalaryRangeSelector from '../general/SalaryRangeSelector';
 import BenefitsSelector from '../general/BenefitsSelector';
 import { JobListingDurationSelector } from '../general/JobListingDurationSelector';
 import JobDescriptionEditor from '../richTextEditor/JobDescriptionEditor';
+import { createJob } from '@/app/actions';
 
 interface CreateJobFormProps {
     companyName: string;
