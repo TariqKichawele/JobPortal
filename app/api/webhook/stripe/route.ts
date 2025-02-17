@@ -50,8 +50,7 @@ export async function POST(req: Request) {
     // Update the job post status to PUBLISHED
     await prisma.jobPost.update({
         where: {
-            id: jobId,
-            userId: user.id, // Ensure the job belongs to the user
+            id: jobId, // Ensure the job belongs to the user
         },
         data: {
             status: "ACTIVE",
