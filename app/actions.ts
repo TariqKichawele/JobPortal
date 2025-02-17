@@ -10,6 +10,7 @@ import { request } from "@arcjet/next";
 import { stripe } from "./utils/stripe";
 import { jobListingDurationPricing } from "./utils/pricingTiers";
 import { inngest } from "./utils/inngest/client";
+import { revalidatePath } from "next/cache";
 
 const aj = arcjet
     .withRule(
@@ -192,6 +193,104 @@ export async function createJob(data: z.infer<typeof jobSchema>) {
     });
 
     return redirect(session.url as string)
+}
+
+export async function getJobs(userId: string) {
+    const data = await prisma.jobPost.findMany({
+      where: {
+        company: {
+          userId: userId,
+        },
+      },
+      select: {
+        id: true,
+        jobTitle: true,
+        status: true,
+        createdAt: true,
+        company: {
+          select: {
+            name: true,
+            logo: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  
+    return data;
+}
+
+export async function deleteJobPost(jobId: string) {
+    const user = await requireUser();
+
+    await prisma.jobPost.delete({
+        where: {
+            id: jobId,
+            company: {
+                userId: user.id
+            }
+        }
+    });
+
+    return redirect("/my-jobs");
+}
+
+export async function saveJobPost(jobId: string) {
+    const user = await requireUser();
+
+    await prisma.savedJobPost.create({
+        data: {
+            jobId: jobId,
+            userId: user.id 
+        }
+    });
+
+    revalidatePath(`/job/${jobId}`);
+}
+
+export async function unsaveJobPost(savedJobPostId: string) {
+    const user = await requireUser();
+  
+    const data = await prisma.savedJobPost.delete({
+        where: {
+            id: savedJobPostId,
+            userId: user.id as string,
+        },
+        select: {
+            jobId: true,
+        },
+    });
+  
+    revalidatePath(`/job/${data.jobId}`);
+}
+
+export async function updateJobPost(data: z.infer<typeof jobSchema>, jobId: string) {
+    const user = await requireUser();
+
+    const validatedData = jobSchema.parse(data);
+
+    await prisma.jobPost.update({
+        where: {
+            id: jobId,
+            company: {
+                userId: user.id
+            }
+        },
+        data: {
+            jobDescription: validatedData.jobDescription,
+            jobTitle: validatedData.jobTitle,
+            employmentType: validatedData.employmentType,
+            location: validatedData.location,
+            salaryFrom: validatedData.salaryFrom,
+            salaryTo: validatedData.salaryTo,
+            listingDuration: validatedData.listingDuration,
+            benefits: validatedData.benefits,
+        }
+    });
+
+    return redirect("/my-jobs");
 }
 
   

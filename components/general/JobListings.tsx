@@ -4,6 +4,22 @@ import JobCard from './JobCard';
 import { EmptyState } from './EmptyState';
 import PaginationContent from './PaginationContent';
 
+interface Job {
+    id: string;
+    jobTitle: string;
+    salaryFrom: number;
+    salaryTo: number;
+    employmentType: string;
+    location: string;
+    createdAt: Date;
+    company: {
+        name: string;
+        logo: string;
+        location: string;
+        about: string;
+    };
+}
+
 async function getJobs( 
     page: number = 1,
     pageSize: number = 10,
@@ -70,7 +86,7 @@ const JobListings = async ({
     <>
         {jobs.length > 0 ? (
             <div className="flex flex-col gap-6">
-                {jobs.map((job, index) => (
+                {jobs.map((job: Job, index: number) => (
                     <JobCard job={job} key={index} />
                 ))}
             </div>
