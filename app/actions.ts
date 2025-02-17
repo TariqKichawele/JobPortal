@@ -243,7 +243,7 @@ export async function saveJobPost(jobId: string) {
     await prisma.savedJobPost.create({
         data: {
             jobId: jobId,
-            userId: user.id 
+            userId: user.id as string
         }
     });
 
