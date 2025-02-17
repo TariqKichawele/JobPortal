@@ -82,15 +82,15 @@ const MyJobs = async () => {
                                     <TableCell>
                                         {listing.company.logo ? (
                                             <Image
-                                            src={listing.company.logo}
-                                            alt={`${listing.company.name} logo`}
-                                            width={40}
-                                            height={40}
-                                            className="rounded-md size-10"
+                                                src={listing.company.logo}
+                                                alt={`${listing.company.name} logo`}
+                                                width={40}
+                                                height={40}
+                                                className="rounded-md size-10"
                                             />
                                         ) : (
                                             <div className="bg-red-500 size-10 rounded-lg flex items-center justify-center">
-                                            <User2 className="size-6 text-white" />
+                                                <User2 className="size-6 text-white" />
                                             </div>
                                         )}
                                     </TableCell>

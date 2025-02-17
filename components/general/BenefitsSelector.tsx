@@ -4,7 +4,7 @@ import React from 'react'
 import { benefits } from '@/app/utils/listOfBenefits'
 import { Badge } from '../ui/badge'
 
-const BenefitsSelector = ({ field }: { field: any }) => {
+const BenefitsSelector = ({ field }: { field: { value: string[]; onChange: (value: string[]) => void } }) => {
     const toggleBenefit = (benefitId: string) => {
         const currentBenefits = field.value || [];
         const newBenefits = currentBenefits.includes(benefitId)

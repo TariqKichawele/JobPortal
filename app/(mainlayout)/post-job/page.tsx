@@ -33,7 +33,7 @@ const PostJob = async () => {
                     Trusted by Industry Leaders
                 </CardTitle>
                 <CardDescription>
-                    Join thousands of companies hiring top talent
+                    Join thousands of companies hiring top talent &quot;Join now!&quot;
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -63,7 +63,7 @@ const PostJob = async () => {
                             className="border-l-2 border-primary pl-4"
                         >
                             <p className="text-sm italic text-muted-foreground">
-                                "{testimonial.quote}"
+                                &apos;{testimonial.quote}&apos;
                             </p>
                             <footer className="mt-2 text-sm font-medium">
                                 - {testimonial.author}, {testimonial.company}

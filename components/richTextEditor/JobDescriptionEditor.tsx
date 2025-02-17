@@ -8,7 +8,12 @@ import TextAlign from "@tiptap/extension-text-align";
 import Typography from "@tiptap/extension-typography";
 import MenuBar from './MenuBar';
 
-const JobDescriptionEditor = ({ field }: { field: any }) => {
+interface FieldType {
+    onChange: (value: string) => void;
+    value: string;
+}
+
+const JobDescriptionEditor = ({ field }: { field: FieldType }) => {
     const editor = useEditor({
         extensions: [
             StarterKit,
