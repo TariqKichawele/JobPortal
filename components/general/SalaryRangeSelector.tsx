@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { formatCurrency } from '@/app/utils/formatCurrency';
@@ -5,13 +6,9 @@ import React, { useEffect, useState } from 'react'
 import { Control, useController } from 'react-hook-form';
 import { Slider } from '../ui/slider';
 
-interface SalaryForm {
-    salaryFrom: number;
-    salaryTo: number;
-}
 
 interface SalaryRangeSelectorProps {
-    control: Control<SalaryForm>;
+    control: Control<any>;
     minSalary?: number;
     maxSalary?: number;
     step?: number;
